@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
 #labels Featured
-
 = Introduction =
 Calculate Your Brain is a simple single html file that using JavaScript? to generate a list of simple mathematic questions and allow people to answer it as fast as possible. The final answer will be display after the last question or press on Answer button to show the results.
 
