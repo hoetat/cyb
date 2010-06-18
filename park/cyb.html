@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title>Calculate Your Brain</title>
+      <meta name="robots" content="noindex"></meta>
+      <style type="text/css">
+      body{ margin:0px; padding:0px; font-family:Verdana, Arial, Times New Roman}
+      table tr td{ font-size:20pt; font-weight:normal;}
+	  table tr td.comment{ font-size:12pt; font-weight:normal;}
+      table tr{ background-color: Scrollbar}
+      input[type=text] 
+      {
+      	font-size:20pt;
+      	font-weight:normal;
+        width: 100px;
+        background-color:white ;
+        border:1px solid blue;
+      }
+      input[type=button] 
+      {
+      	font-size:15pt;
+      }
+      td.num 
+      {
+      	width:80px;
+      	font-size:20pt;
+      	font-weight:normal;
+      } 
+      td.num1, td.num2 
+      {
+      	width:80px;
+      	font-size:20pt;
+      	font-weight:bold;
+      	padding:2px 15px 2px 15px;
+      } 
+      td.ans {width:100px; background-color:Yellow;} 
+      td.uans {width:100px;} 
+      .correct{ background-color:green; }
+      .incorrect{ background-color:Red; }
+      #clock{ font-size:18pt; }
+	  div.copyright 
+		{
+			margin: 0px 0px 0px 0px;
+			padding: 1px 2px 1px 2px;
+			width:100%;
+			/*border:1px solid black;*/
+			text-align:center;
+			color:#AAAAAA;
+			font-size:xx-small;
+			text-decoration:none;
+		}
+      </style>
+      <script type="text/javascript">
+          eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('3 L=10;3 P=9;3 E="I";3 J="I";3 Q=["I","T","1h"];3 Y="";3 G=0;3 R=0;3 h=[];3 j=[];3 V=[];3 t=[];l 1Z(){G=0;Y="";3 x=20 22();7(x.1a("q")){L=1j(x.Z("q"))||10;4.5("1q").v=L}7(x.1a("d")){P=1j(x.Z("d"))||9;4.5("1r").v=P}7(x.1a("A")&&x.Z("A")=="z"){4.5("A").X=z;4.5("1v").g.b="H";4.5("18").g.b="";4.5("14").g.b=""}3 11=4.1l("s");J=x.Z("s")||"I";7(J!="U"){E=J;3 a=J.1V(",");Q=[];N(3 i=0;i<a.y;i++){Q.u(a[i]);N(3 c=0;c<11.y;c++){7(11[c].v==a[i]){11[c].X=z;f}}}}3 s=\'\';1z()}l 1z(){4.5(\'1b\').1k();4.5("1y").g.b="H";4.5("S").O="1X 27 28 29 26 23 24.";3 1x="25=\'1u()\'";3 s="<15 1D=\'0\' 1E=\'2\' 1B=\'2\' p=\'12\'>";N(3 i=0;i<L;i++){3 a=C.19(C.U()*Q.y);E=Q[a];3 n=1F(E,C.19(C.U()*P)+1,C.19(C.U()*P)+1);h.u(n[0]);j.u(n[1]);V.u(E);s+="<17><6 p=\'1C\' w=\'1w\'>"+(i+1)+"</6><6 p=\'W\'  w=\'h\'>"+h[i]+"</6><6>"+1f(V[i])+"</6><6 p=\'W\'  w=\'j\'>"+j[i]+"</6><6>&B;=&B;</6><6>"+"<1O 1K=\'1L\' 1S=\'1i"+i+"\' 1T=\'1e\' 1U=\'r 1t(1J, "+i+");\' "+1x+" />"+"</6></17>";1c(E){k"I":t.u(h[i]+j[i]);f;k"T":t.u(h[i]-j[i]);f;k"1h":t.u(h[i]*j[i]);f;k"1n":t.u((h[i]/j[i]).1P(2));f;1I:t.u(h[i]+j[i]);f}}s+="</15>";4.5("14").O=s}l 1o(){3 1g=0;4.5("1b").g.b="H";4.5("18").g.b="H";4.5("1y").g.b="";3 K=4.1l("1e");3 s="<15 1D=\'0\' 1E=\'2\' 1B=\'2\' p=\'12\'>";N(3 i=0;i<h.y;i++){s+="<17><6 p=\'1C\' w=\'1w\'>"+(i+1)+"</6><6 p=\'W\'  w=\'h\'>"+h[i]+"</6><6>"+1f(V[i])+"</6><6 p=\'W\'  w=\'j\'>"+j[i]+"</6><6>&B;=&B;</6><6 p=\'12\' w=\'K "+(K[i].v==t[i]?"2o":"2s")+"\'>"+K[i].v+"</6><6 p=\'12\' w=\'1e\' >"+t[i]+"</6></17>";7(K[i].v==t[i])1g++}s+="</15>";4.5("14").O=s;4.5("S").g.b="";4.5("S").O="2b "+1g+" 2d 2k "+L;1H(R);G=0}l 1u(){7(G==0){4.5("1v").g.b="H";4.5("18").g.b="";4.5("14").g.b="";4.5("1b").g.b="H";4.5("S").g.b="";4.5(\'2l\').1k();1d()}}l 1d(){4.5(\'2c\').O=G+" 2r";1H(R);R=2q("1d()",2a);G++}l 1f(a){3 s="+";1c(a){k"I":s="+";f;k"T":s="-";f;k"1h":s="*";f;k"1n":s="/";f;1I:s="+";f}r"&B;"+s+"&B;"}l 1F(a,F,D){3 n=[];n[0]=F;n[1]=D;1c(a){k"T":7(F<D){n[0]=D;n[1]=F}f;k"1n":7(F<D){n[0]=D;n[1]=F}f}r n}l 1t(e,i){3 M=(e)?e:1A.1J;3 o=(M.1G)?M.1G:M.1Q;7(o!=1R){o=1j(o,10);7((o<2p||o>2m)&&(o<2h||o>2i)){7(!1p(o)){r 1m}}1s{7(M.2j)r 1m}7(o==13){7(4.5("1i"+(i+1))){4.5("1i"+(i+1)).1k()}1s{1o()}}}r z}l 1p(m){7(m==8||m==9||m==13||m==2g||m==2f)r z;7((m>16&&m<21)||(m>2e&&m<2t))r z;r 1m}l 2n(){3 d=4.5("1r").v;3 q=4.5("1q").v;3 a=4.1l("s");3 A=4.5("A");3 s=\'\';N(3 i=0;i<a.y;i++){7(a[i].X)s+=a[i].v+\',\'}7(s.y>0)s=s.1N(0,s.y-1);7(A.X)Y="&A=z";1A.1M="1W.1Y?d="+d+"&q="+q+"&s="+s+Y}',62,154,'|||var|document|getElementById|td|if|||sym|display||||break|style|num1||num2|case|function|val||key|align||return||answers|push|value|class|qs|length|true|show|nbsp|Math|n2|MATHSYMBOL|n1|timecount|none|plus|MATHSYMBOLQuery|uans|TOTALQUESTION|evt|for|innerHTML|DIGIT|SYMBOLS|timerID|lblFeedback|minus|random|msymbol|right|checked|showquestion|get||symchk|center||divQuestion|table||tr|btnAnswer|floor|contains|btnStart|switch|funClock|ans|symbol|totalcorrect|times|txtAns|parseInt|focus|getElementsByName|false|divide|checkAnswer|isUserFriendlyChar|txtQuestion|txtDigit|else|numbersOnly|starttimer|divExample|num|clicktostart|btnBack|generate|window|cellspacing|left|border|cellpadding|switchnumber|keyCode|clearTimeout|default|event|type|text|location|substring|input|toFixed|which|null|id|name|onKeyDown|split|cyb|Press|html|load|new||Querystring|next|question|onfocus|to|ENTER|or|TAB|1000|Score|clock|out|34|46|45|96|105|shiftKey|of|txtAns0|57|goload|correct|48|setTimeout|seconds|incorrect|41'.split('|'),0,{}))
+
+      </script>
+      <script type="text/javascript">
+          function Querystring(qs) { // optionally pass a querystring to parse
+              this.params = {};
+
+              if (qs == null) qs = location.search.substring(1, location.search.length);
+              if (qs.length == 0) return;
+
+              // Turn <plus> back to <space>
+              // See: http://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.4.1
+              qs = qs.replace(/\+/g, ' ');
+              var args = qs.split('&'); // parse out name/value pairs separated via &
+
+              // split out each name=value pair
+              for (var i = 0; i < args.length; i++) {
+                  var pair = args[i].split('=');
+                  var name = decodeURIComponent(pair[0]);
+
+                  var value = (pair.length == 2)
+			? decodeURIComponent(pair[1])
+			: name;
+
+                  this.params[name] = value;
+              }
+          }
+
+          Querystring.prototype.get = function(key, default_) {
+              var value = this.params[key];
+              return (value != null) ? value : default_;
+          }
+
+          Querystring.prototype.contains = function(key) {
+              var value = this.params[key];
+              return (value != null);
+          }
+      </script>
+   </head>
+   <body onload="load()">
+   <div style="text-align:center">
+   <div style="height:70px">
+   <div id="lblFeedback">Press ENTER or TAB to next question.</div>
+   <div id="clock"></div>
+   <input id="btnStart" type="button" value="Press ENTER to Start" onclick="starttimer()" />
+   </div>
+   <div id="divQuestion" style="display:none"></div>
+   <div id="divExample">
+   <table border='0' cellpadding='2' cellspacing='2' align='center'>
+   <tr><td align='center' colspan="6"><b>Sample Questions</b></td></tr>
+   <tr><td align='left' class='num'>1</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>2</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>3</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>4</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>5</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>6</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>7</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>8</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>9</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>10</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   </table>
+   </div>
+   <input id="btnAnswer" type="button" value="Answer" onclick="checkAnswer()" onfocus="checkAnswer()"  style="display:none"/>
+   <input id="btnBack" type="button" value="Restart" onclick=" window.location=window.location;" style="display:none;"/>
+   </div>
+      <br />
+   <div style=" text-align:left">
+   <form id="form1" action="cyb.html" method="get">
+   <div><table border='0' cellpadding='2' cellspacing='2' align='center'><tr><td><b>Setting:</b></td></tr>
+   <tr><td>Digit:<input id="txtDigit" name="d" type="text" value="10" />
+   , Question:<input id="txtQuestion" name="q" type="text" value="10" />
+   <input type="checkbox" name="s" value="plus" />plus
+   <input type="checkbox" name="s" value="minus" />minus
+   <input type="checkbox" name="s" value="times" />times
+   <input type="checkbox" id="show" name="show" value="false" />Show Question First
+   <input id="btnGo" type="button" onclick="goload()" value="Go" />
+   </td></tr>
+   <tr><td class="comment">
+    Passing query string Digit(d), Total Question(q) or Math symbol(s) "plus", "minus","times" to increase the difficulty. 
+   <br />Eg: 
+   <ol>
+   <li>Digit till 999, 20 questions and Symbol equal times. cyb.html?d=999&q=20&s=times</li>
+   <li>Digit till 10, 20 questions and Symbol plus and minus. cyb.html?d=10&q=20&s=plus,minus</li>
+   </ol>
+   </td></tr>
+   <tr><td class="comment"><b>Concept:This simple calculation is just to train your brain for calculation that we almost forget.</b>
+   </td></tr>
+   </table>
+   </div>
+   </form>
+  
+   </div>
+   <div class="copyright">&copy; <a href="http://www.eflexoft.com" target="_black">Flexible Software Enterprise</a>. Author: <a href="mailto:hoetat@eflexoft.com">Hoe Tat</a></div>
+   </body>
+</html>   
+   
