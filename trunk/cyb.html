@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title>Calculate Your Brain</title>
+      <meta name="robots" content="noindex"></meta>
+      <style type="text/css">
+      body{ margin:0px; padding:0px; font-family:Verdana, Arial, Times New Roman}
+      table tr td{ font-size:20pt; font-weight:normal;}
+	  table tr td.comment{ font-size:12pt; font-weight:normal;}
+      table tr{ background-color: Scrollbar}
+      input[type=text] 
+      {
+      	font-size:20pt;
+      	font-weight:normal;
+        width: 100px;
+        background-color:white ;
+        border:1px solid blue;
+      }
+      input[type=button] 
+      {
+      	font-size:15pt;
+      }
+      td.num 
+      {
+      	width:80px;
+      	font-size:20pt;
+      	font-weight:normal;
+      } 
+      td.num1, td.num2 
+      {
+      	width:80px;
+      	font-size:20pt;
+      	font-weight:bold;
+      	padding:2px 15px 2px 15px;
+      } 
+      td.ans {width:100px; background-color:Yellow;} 
+      td.uans {width:100px;} 
+      .correct{ background-color:green; }
+      .incorrect{ background-color:Red; }
+      #clock{ font-size:18pt; }
+	  div.copyright 
+		{
+			margin: 0px 0px 0px 0px;
+			padding: 1px 2px 1px 2px;
+			width:100%;
+			/*border:1px solid black;*/
+			text-align:center;
+			color:#AAAAAA;
+			font-size:xx-small;
+			text-decoration:none;
+		}
+      </style>
+      <script type="text/javascript">
+          var TOTALQUESTION = 10;
+          var DIGIT = 9;
+          var MATHSYMBOL = "plus";
+          var MATHSYMBOLQuery = "plus";
+          var SYMBOLS = [ "plus", "minus","times" ];
+		  var showquestion = "";
+          var timecount = 0;
+          var timerID = 0;
+          var num1 = [];
+          var num2 = [];
+          var msymbol = [];
+          var answers = [];
+          function load() {
+              timecount = 0;
+			  showquestion = "";
+              var qs = new Querystring();
+              if (qs.contains("q")) { TOTALQUESTION = parseInt(qs.get("q")) || 10; document.getElementById("txtQuestion").value = TOTALQUESTION}
+              if (qs.contains("d")) { DIGIT = parseInt(qs.get("d")) || 9; document.getElementById("txtDigit").value = DIGIT }
+			  if (qs.contains("show") && qs.get("show")=="true") { document.getElementById("show").checked = true; document.getElementById("divExample").style.display = "none"; document.getElementById("btnAnswer").style.display = ""; document.getElementById("divQuestion").style.display = ""; }
+			  
+              var symchk = document.getElementsByName("s");
+              MATHSYMBOLQuery = qs.get("s") || "plus";
+              if (MATHSYMBOLQuery != "random") {
+                  MATHSYMBOL = MATHSYMBOLQuery;
+                  var sym = MATHSYMBOLQuery.split(",");
+                  SYMBOLS = [];
+                  for (var i = 0; i < sym.length; i++) {
+                      SYMBOLS.push(sym[i]);
+                      for (var c = 0; c < symchk.length; c++) {
+                          if (symchk[c].value == sym[i]) {
+                              symchk[c].checked = true;
+                              break;
+                          }
+                      }
+                  }
+              }
+              
+              var s = '';
+              
+              generate();
+          }
+          function generate() {
+              document.getElementById('btnStart').focus();
+              document.getElementById("btnBack").style.display = "none";
+              document.getElementById("lblFeedback").innerHTML = "Press ENTER or TAB to next question.";
+              var clicktostart = "onfocus='starttimer()'";
+              var s = "<table border='0' cellpadding='2' cellspacing='2' align='center'>";
+              for (var i = 0; i < TOTALQUESTION; i++) {
+                  var sym = Math.floor(Math.random() * SYMBOLS.length);
+                  MATHSYMBOL = SYMBOLS[sym];
+                  
+                  var n = switchnumber(MATHSYMBOL, Math.floor(Math.random() * DIGIT) + 1, Math.floor(Math.random() * DIGIT) + 1);
+                  num1.push(n[0]);
+                  num2.push(n[1]);
+                  msymbol.push(MATHSYMBOL);
+                  
+                  s += "<tr><td align='left' class='num'>" + (i + 1) + "</td><td align='right'  class='num1'>" + num1[i] + "</td><td>" + symbol(msymbol[i]) + "</td><td align='right'  class='num2'>" + num2[i] + "</td><td>&nbsp;=&nbsp;</td><td>" + "<input type='text' id='txtAns" + i + "' name='ans' onKeyDown='return numbersOnly(event, " + i + ");' " + clicktostart + " />" + "</td></tr>";
+                  
+                  switch (MATHSYMBOL) {
+                      case "plus":
+                          answers.push(num1[i] + num2[i]);
+                          break;
+                      case "minus":
+                          answers.push(num1[i] - num2[i]);
+                          break;
+                      case "times":
+                          answers.push(num1[i] * num2[i]);
+                          break;
+                      case "divide":
+                          answers.push((num1[i] / num2[i]).toFixed(2));
+                          break;
+                      default:
+                          answers.push(num1[i] + num2[i]);
+                          break;
+                  }
+              }
+              
+              s += "</table>";
+              document.getElementById("divQuestion").innerHTML = s;
+          }
+          
+          function checkAnswer() {
+              var totalcorrect = 0;
+              document.getElementById("btnStart").style.display = "none";
+              document.getElementById("btnAnswer").style.display = "none";
+              document.getElementById("btnBack").style.display = "";
+              
+              var uans = document.getElementsByName("ans");
+              var s = "<table border='0' cellpadding='2' cellspacing='2' align='center'>";
+              for (var i = 0; i < num1.length; i++) {
+                  s += "<tr><td align='left' class='num'>" + (i + 1) + "</td><td align='right'  class='num1'>" + num1[i] + "</td><td>" + symbol(msymbol[i]) + "</td><td align='right'  class='num2'>" + num2[i] + "</td><td>&nbsp;=&nbsp;</td><td align='center' class='uans " + (uans[i].value == answers[i] ? "correct" : "incorrect") + "'>" + uans[i].value + "</td><td align='center' class='ans' >" + answers[i] + "</td></tr>";
+                  if (uans[i].value == answers[i]) totalcorrect++;
+              }
+              s += "</table>";
+              document.getElementById("divQuestion").innerHTML = s;
+              document.getElementById("lblFeedback").style.display = "";
+              document.getElementById("lblFeedback").innerHTML = "Score " + totalcorrect + " out of " + TOTALQUESTION;
+              clearTimeout(timerID);
+              timecount = 0;
+          }
+          function starttimer() {
+              if (timecount == 0) {
+			      document.getElementById("divExample").style.display = "none";
+			      document.getElementById("btnAnswer").style.display = "";
+				  document.getElementById("divQuestion").style.display = "";
+                  document.getElementById("btnStart").style.display = "none";
+                  document.getElementById("lblFeedback").style.display = "";
+                  document.getElementById('txtAns0').focus();
+                  funClock();
+              }
+          }
+
+          function funClock() {
+              document.getElementById('clock').innerHTML = timecount + " seconds";
+              clearTimeout(timerID);
+              timerID = setTimeout("funClock()", 1000);
+              timecount++;
+          }
+          function symbol(sym) {
+              var s = "+";
+              switch (sym) {
+                  case "plus":
+                      s = "+";
+                      break;
+                  case "minus":
+                      s = "-";
+                      break;
+                  case "times":
+                      s = "*";
+                      break;
+                  case "divide":
+                      s = "/";
+                      break;
+                  default:
+                      s = "+";
+                      break;
+              }
+              return "&nbsp;" + s + "&nbsp;";
+          }
+          function switchnumber(sym,n1, n2) {
+              var n = [];
+              n[0] = n1;
+              n[1] = n2;
+              switch (sym) {
+                  case "minus":
+                      if (n1 < n2) { n[0] = n2; n[1] = n1; }
+                      break;
+                  case "divide":
+                      if (n1 < n2) { n[0] = n2; n[1] = n1; }
+                      break;
+              }
+              return n;
+          }
+
+          function numbersOnly(e, i) {
+              var evt = (e) ? e : window.event;
+              var key = (evt.keyCode) ? evt.keyCode : evt.which;
+              
+              if (key != null) {
+                  key = parseInt(key, 10);
+
+                  if ((key < 48 || key > 57) && (key < 96 || key > 105)) {
+                      if (!isUserFriendlyChar(key)) {
+                          return false;
+                      }
+                  }
+                  else {
+                      if (evt.shiftKey)
+                          return false;
+                  }
+                  if (key == 13) {
+//                      if (evt.keyCode) {
+//                          evt.keyCode = 9;
+//                      }
+//                      else {
+                          if (document.getElementById("txtAns" + (i + 1))) {
+                              document.getElementById("txtAns" + (i + 1)).focus();
+                          }
+                          else {
+                              checkAnswer();
+                          }
+//                      }
+                  }        
+              }
+
+              return true;
+          }
+          function isUserFriendlyChar(val) {
+              // Backspace, Tab, Enter, Insert, and Delete
+              if (val == 8 || val == 9 || val == 13 || val == 45 || val == 46)
+                  return true;
+
+              // Ctrl, Alt, CapsLock, Home, End, and Arrows
+              if ((val > 16 && val < 21) || (val > 34 && val < 41))
+                  return true;
+
+              // The rest
+              return false;
+          }
+
+          function goload() {
+              var d = document.getElementById("txtDigit").value;
+              var q = document.getElementById("txtQuestion").value;
+              var sym = document.getElementsByName("s");
+			  var show = document.getElementById("show");
+              var s = '';
+              for (var i = 0; i < sym.length; i++) {
+                  if (sym[i].checked) s += sym[i].value + ',';
+              }
+              if (s.length > 0) s = s.substring(0, s.length - 1); //Remove last comma
+			  
+              if(show.checked)  showquestion = "&show=true";
+              window.location = "cyb.html?d=" + d + "&q=" + q + "&s=" + s + showquestion;
+
+          }
+      </script>
+      <script type="text/javascript">
+          function Querystring(qs) { // optionally pass a querystring to parse
+              this.params = {};
+
+              if (qs == null) qs = location.search.substring(1, location.search.length);
+              if (qs.length == 0) return;
+
+              // Turn <plus> back to <space>
+              // See: http://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.4.1
+              qs = qs.replace(/\+/g, ' ');
+              var args = qs.split('&'); // parse out name/value pairs separated via &
+
+              // split out each name=value pair
+              for (var i = 0; i < args.length; i++) {
+                  var pair = args[i].split('=');
+                  var name = decodeURIComponent(pair[0]);
+
+                  var value = (pair.length == 2)
+			? decodeURIComponent(pair[1])
+			: name;
+
+                  this.params[name] = value;
+              }
+          }
+
+          Querystring.prototype.get = function(key, default_) {
+              var value = this.params[key];
+              return (value != null) ? value : default_;
+          }
+
+          Querystring.prototype.contains = function(key) {
+              var value = this.params[key];
+              return (value != null);
+          }
+      </script>
+   </head>
+   <body onload="load()">
+   <div style="text-align:center">
+   <div style="height:70px">
+   <div id="lblFeedback">Press ENTER or TAB to next question.</div>
+   <div id="clock"></div>
+   <input id="btnStart" type="button" value="Press ENTER to Start" onclick="starttimer()" />
+   </div>
+   <div id="divQuestion" style="display:none"></div>
+   <div id="divExample">
+   <table border='0' cellpadding='2' cellspacing='2' align='center'>
+   <tr><td align='center' colspan="6"><b>Sample Questions</b></td></tr>
+   <tr><td align='left' class='num'>1</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>2</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>3</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>4</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>5</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>6</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>7</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>8</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>9</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   <tr><td align='left' class='num'>10</td><td align='right'  class='num1'>0</td><td> + </td><td align='right'  class='num2'>0</td><td>&nbsp;=&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+   </table>
+   </div>
+   <input id="btnAnswer" type="button" value="Answer" onclick="checkAnswer()" onfocus="checkAnswer()"  style="display:none"/>
+   <input id="btnBack" type="button" value="Restart" onclick=" window.location=window.location;" style="display:none;"/>
+   </div>
+      <br />
+   <div style=" text-align:left">
+   <form id="form1" action="cyb.html" method="get">
+   <div><table border='0' cellpadding='2' cellspacing='2' align='center'><tr><td><b>Setting:</b></td></tr>
+   <tr><td>Digit:<input id="txtDigit" name="d" type="text" value="10" />
+   , Question:<input id="txtQuestion" name="q" type="text" value="10" />
+   <input type="checkbox" name="s" value="plus" />plus
+   <input type="checkbox" name="s" value="minus" />minus
+   <input type="checkbox" name="s" value="times" />times
+   <input type="checkbox" id="show" name="show" value="false" />Show Question First
+   <input id="btnGo" type="button" onclick="goload()" value="Go" />
+   </td></tr>
+   <tr><td class="comment">
+    Passing query string Digit(d), Total Question(q) or Math symbol(s) "plus", "minus","times" to increase the difficulty. 
+   <br />Eg: 
+   <ol>
+   <li>Digit till 999, 20 questions and Symbol equal times. cyb.html?d=999&q=20&s=times</li>
+   <li>Digit till 10, 20 questions and Symbol plus and minus. cyb.html?d=10&q=20&s=plus,minus</li>
+   </ol>
+   </td></tr>
+   <tr><td class="comment"><b>Concept:This simple calculation is just to train your brain for calculation that we almost forget.</b>
+   </td></tr>
+   </table>
+   </div>
+   </form>
+  
+   </div>
+   <div class="copyright">&copy; <a href="http://www.eflexoft.com" target="_black">Flexible Software Enterprise</a>. Author: <a href="mailto:hoetat@eflexoft.com">Hoe Tat</a></div>
+   </body>
+</html>   
+   
